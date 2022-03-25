@@ -20,22 +20,18 @@ class UpdateArticleRequest
      */
     public function validate($request)
     {
-        $validator = Validator::make($request->all(),  [
-            'name' => 'required|string',
-            'isbn' => 'required|string',
-            'authors' => 'required|',
-            'number_of_pages' => 'required|integer',
-            'publisher' => 'required|string',
-            'country' => 'required|string',
-            'release_date' => 'required|date',
-        ], [
-            'name.required' => 'The name field is required',
-            'isbn.required' => 'The isbn field is required',
-            'authors.required' => 'The authors field is required',
-            'number_of_pages.required' => 'The number_of_pages field is required',
-            'publisher.required' => 'The publisher field is required',
-            'country.required' => 'The country field is required',
-            'release_date.required' => 'The release_date field is required',
-        ]);
+        $validator = Validator::make($request->all(),   [
+               'name' => 'required|string',
+               'author' => 'required|string',
+               'text' => 'required|string',
+               'expiry_date' => 'required|date',
+               'publication_date' => 'required|date',
+           ], [
+               'name.required' => 'The name field is required',
+               'author.required' => 'The author field is required',
+               'text.required' => 'The text field is required',
+               'expiry_date.required' => 'The expiry date field is required',
+               'publication_date.required' => 'The publication date field is required'
+           ]);
     }
 }
