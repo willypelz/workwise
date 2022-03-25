@@ -77,21 +77,6 @@ class ArticlesController extends BaseController
      */
     public function store(Request $request, CreateArticleRequest $createArticleRequest)
     {
-        //TODO:: to be movedto create artcle request
-        $this->validate($request,  [
-            'name' => 'required|string',
-            'author' => 'required|string',
-            'text' => 'required|string',
-            'expiry_date' => 'required|date',
-            'publication_date' => 'required|date',
-        ], [
-            'name.required' => 'The name field is required',
-            'author.required' => 'The author field is required',
-            'text.required' => 'The text field is required',
-            'expiry_date.required' => 'The expiry date field is required',
-            'publication_date.required' => 'The publication date field is required'
-        ]);
-
         $createArticleRequest->validate($request);
         $article = $this->articleRepository->createArticle($request->all());
 
@@ -127,22 +112,7 @@ class ArticlesController extends BaseController
      */
     public function update(Request $request, $id)
     {
-//        $updateArticleRequest->validate($request);
-       //TODO:: to be movedto update artcle request
-        $this->validate($request,  [
-            'name' => 'required|string',
-            'author' => 'required|string',
-            'text' => 'required|string',
-            'expiry_date' => 'required|date',
-            'publication_date' => 'required|date',
-        ], [
-            'name.required' => 'The name field is required',
-            'author.required' => 'The author field is required',
-            'text.required' => 'The text field is required',
-            'expiry_date.required' => 'The expiry date field is required',
-            'publication_date.required' => 'The publication date field is required'
-        ]);
-
+       $updateArticleRequest->validate($request);
         $updatedArticle = $this->articleRepository->updateArticle($request, $id);
         if (is_string($updatedArticle)) return $this->apiResponse->respondWithError($updatedArticle);
 
