@@ -1,7 +1,7 @@
 <?php
 
 /** @var \Laravel\Lumen\Routing\Router $router */
-
+use App\Http\Controllers\ArticlesController;
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -15,4 +15,16 @@
 
 $router->get('/', function () use ($router) {
     return $router->app->version();
+});
+
+$router->group(['prefix' => 'api'], function ($router) {
+
+    /**
+     * Articles
+     */
+    $router->get('articles', 'ArticlesController@index');
+    $router->get('articles/{id}', 'ArticlesController@show');
+    $router->put('articles/{id}', 'ArticlesController@update');
+    $router->post('articles', 'ArticlesController@store');
+    $router->delete('articles/{id}', 'ArticlesController@destroy');
 });
