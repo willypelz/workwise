@@ -1,0 +1,38 @@
+
+
+version: '3.7'
+services:
+  php:
+    build:
+      context: .
+      dockerfile: docker/test-backend/Dockerfile
+      target: prod
+    ports: ['9000:9001']
+    links:
+      - mysql
+    container_name: customer-test-backend
+    environment:
+      - "DB_CONNECTION=mysql"
+      - "DB_HOST=mysql"
+      - "DB_PORT=3307"
+      - "DB_DATABASE=test_app"
+      - "DB_USERNAME=root"
+      - "DB_PASSWORD=test"
+  nginx:
+    build:
+      context: .
+      dockerfile: docker/test-backend-nginx/Dockerfile
+    ports: ['8002:80']
+    links:
+      - php
+    volumes:
+      - ./logs/test-backend-nginx:/var/log/nginx:cached
+      - ./www/test-backend/:/var/www/html
+    container_name: customer-test-nginx
+  mysql:
+    image: mysql:5.7
+    ports: ['3307:3306']
+    environment:
+      - MYSQL_DATABASE=test_app
+      - MYSQL_ROOT_PASSWORD=test
+    container_name: customer-test-mysql
